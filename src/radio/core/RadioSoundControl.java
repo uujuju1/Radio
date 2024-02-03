@@ -11,7 +11,15 @@ import mindustry.gen.*;
 import static mindustry.Vars.*;
 
 public class RadioSoundControl extends SoundControl {
-	public Playlist currentPlaylist = new Playlist(Seq.with(), 0, false);
+	public final ObjectMap<String, Music> musics = musicNames();
+	public Playlist currentPlaylist = new Playlist(
+		musics.values().toSeq().removeAll(m -> Seq.with(Musics.menu, Musics.editor, Musics.launch, Musics.land).contains(m)),
+		0, false
+	);
+	public Music menuMusic = Musics.menu;
+	public Music launchMusic = Musics.launch;
+	public Music editorMusic = Musics.editor;
+	public Music landMusic = Musics.land;
 
 	public RadioSoundControl() {
 		musicChance = 0;
@@ -36,7 +44,6 @@ public class RadioSoundControl extends SoundControl {
 		return super.isDark();
 	}
 	@Override public void play(Music music) {
-		if (music != null) silenced = false;
 		super.play(music);
 	}
 	@Override public void playOnce(Music music) {
@@ -77,12 +84,32 @@ public class RadioSoundControl extends SoundControl {
 		);
 		return out;
 	}
+	public ObjectMap<String, Music> musicNames() {
+		ObjectMap<String, Music> out = new ObjectMap<>();
+
+		Vars.mods.orderedMods().each(mod -> new ZipFi(mod.file).child("music").seq().each(music -> {
+			try {
+				out.put(mod.name + ": " + music.nameWithoutExtension(), new Music(music));
+			} catch (Exception horrible) {
+				throw new RuntimeException("ah yes", horrible);
+			}
+		}));
+
+		out.putAll(
+			"Boss1", Musics.boss1, "Boss2", Musics.boss2, "Editor", Musics.editor, "Fine", Musics.fine,
+			"Game1", Musics.game1, "Game2", Musics.game2, "Game3", Musics.game3, "Game4", Musics.game4,
+			"Game5", Musics.game5, "Game6", Musics.game6, "Game7", Musics.game7, "Game8", Musics.game8,
+			"Game9", Musics.game9, "Land", Musics.land, "Launch", Musics.launch, "Menu", Musics.menu
+		);
+		return out;
+	}
 
 	@Override
 	public void update() {
 		boolean paused = state.isGame() && Core.scene.hasDialog();
 		boolean playing = state.isGame();
 
+		//region setup
 		//check if current track is finished
 		if(current != null && !current.isPlaying()){
 			current = null;
@@ -112,8 +139,24 @@ public class RadioSoundControl extends SoundControl {
 		}
 
 		Core.audio.setPaused(Core.audio.soundBus.id, state.isPaused());
+		//endregion
 
-		if (current == null && !currentPlaylist.ended()) {
+		if (state.isMenu()) {
+			silenced = false;
+			if(ui.planet.isShown()){
+				play(launchMusic);
+			}else if(ui.editor.isShown()){
+				play(editorMusic);
+			}else{
+				play(menuMusic);
+			}
+		}else if (state.rules.editor) {
+			silenced = false;
+			play(editorMusic);
+		} else {
+			silence();
+		}
+		if (silenced && current == null && !currentPlaylist.ended()) {
 			playOnce(currentPlaylist.nextMusic());
 		}
 
@@ -139,7 +182,7 @@ public class RadioSoundControl extends SoundControl {
 		}
 
 		public boolean ended() {
-			return !repeats || current >= list.size;
+			return !(repeats || current < list.size);
 		}
 	}
 }
