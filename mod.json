@@ -1,9 +1,10 @@
 {
-    "displayName": "Mod Template",
-    "description": "Mindustry Java mod template, complete with EntityAnno and syntax downgrader integration.",
+    "displayName": "Radio",
+    "description": "A Mindustry music loader.",
     "version": "v1.0",
     "minGameVersion": "146",
     "author": "You",
     "java": true,
-    "main": "template.ModTemplate"
+    "hidden": true,
+    "main": "radio.RadioMod"
 }

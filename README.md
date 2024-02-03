@@ -130,7 +130,7 @@ Before going into using this template, be aware that a fair amount of Java knowl
          "minGameVersion": "146",
          "author": "You",
          "java": true,
-   -     "main": "template.ModTemplate"
+   -     "main": "template.templateMod"
    +     "main": "confictura.ConficturaMod"
      }
    ```
