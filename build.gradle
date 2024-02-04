@@ -1,8 +1,6 @@
-import arc.files.*
-import arc.util.*
+import arc.files.Fi
+import arc.util.OS
 import arc.util.serialization.Jval
-
-import java.util.regex.*
 
 buildscript{
     dependencies{
@@ -21,7 +19,7 @@ buildscript{
 plugins{
     // Register `EntityAnno` plugin, but only apply on `rootProject`.
     id 'java'
-    id 'com.github.GlennFolker.EntityAnno' version "$entVersion" apply false
+    //id 'com.github.GlennFolker.EntityAnno' version "$entVersion" apply false
 }
 
 configure(allprojects){
@@ -82,22 +80,22 @@ configure(allprojects){
 
 configure(rootProject){
     // Apply `EntityAnno` plugin to integrate the annotation processors.
-    apply plugin: 'com.github.GlennFolker.EntityAnno'
+    // apply plugin: 'com.github.GlennFolker.EntityAnno'
 
-    entityAnno{
-        modName = property('modName')
-        mindustryVersion = property(useJitpack ? 'mindustryBEVersion' : 'mindustryVersion')
-        isJitpack = useJitpack
-        revisionDir = layout.projectDirectory.dir('revisions').asFile
-        fetchPackage = modFetch
-        genSrcPackage = modGenSrc
-        genPackage = modGen
-    }
+//    entityAnno{
+//        modName = property('modName')
+//        mindustryVersion = property(useJitpack ? 'mindustryBEVersion' : 'mindustryVersion')
+//        isJitpack = useJitpack
+//        revisionDir = layout.projectDirectory.dir('revisions').asFile
+//        fetchPackage = modFetch
+//        genSrcPackage = modGenSrc
+//        genPackage = modGen
+//    }
 
     dependencies{
         // Use the entity generation annotation processor.
-        compileOnly "com.github.GlennFolker.EntityAnno:entity:$entVersion"
-        kapt "com.github.GlennFolker.EntityAnno:entity:$entVersion"
+//        compileOnly "com.github.GlennFolker.EntityAnno:entity:$entVersion"
+//        kapt "com.github.GlennFolker.EntityAnno:entity:$entVersion"
 
         // Depend on Mindustry/Arc classpath.
         compileOnly "${mindustry(':core')}"

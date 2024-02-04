@@ -1,5 +1,6 @@
 package radio.ui;
 
+import arc.*;
 import arc.audio.*;
 import arc.func.*;
 import arc.graphics.*;
@@ -23,9 +24,9 @@ public class RadioBaseSettingsDialog extends BaseDialog {
 		ObjectMap<String, Music> musicNames = soundControl.musics;
 
 		cont.table(((TextureRegionDrawable) Tex.whiteui).tint(Color.valueOf("141414")), radio -> {
-			radio.add(selectMusicType("Menu Music", musicNames, music -> soundControl.menuMusic = music, musicNames.findKey(soundControl.menuMusic, false))).margin(20).pad(10).growX();
-			radio.add(selectMusicType("Editor Music", musicNames, music -> soundControl.editorMusic = music, musicNames.findKey(soundControl.editorMusic, false))).margin(20).pad(10).growX().row();
-			radio.add(selectMusicType("Launch Music", musicNames, music -> soundControl.launchMusic = music, musicNames.findKey(soundControl.launchMusic, false))).margin(20).pad(10).growX();
+			radio.add(selectMusicType(Core.bundle.get("radio.settings.menu-dialog"), musicNames, music -> soundControl.menuMusic = music, musicNames.findKey(soundControl.menuMusic, false))).margin(20).pad(10).growX();
+			radio.add(selectMusicType(Core.bundle.get("radio.settings.editor-dialog"), musicNames, music -> soundControl.editorMusic = music, musicNames.findKey(soundControl.editorMusic, false))).margin(20).pad(10).growX().row();
+			radio.add(selectMusicType(Core.bundle.get("radio.settings.launch-dialog"), musicNames, music -> soundControl.launchMusic = music, musicNames.findKey(soundControl.launchMusic, false))).margin(20).pad(10).growX();
 		});
 		addCloseButton();
 		hidden(RadioIO::writeSettings);

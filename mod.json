@@ -3,7 +3,7 @@
     "description": "A Mindustry music loader.",
     "version": "v1.0",
     "minGameVersion": "146",
-    "author": "You",
+    "author": "Aurora",
     "java": true,
     "hidden": true,
     "main": "radio.RadioMod"
