@@ -11,6 +11,7 @@ import mindustry.gen.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 import radio.core.*;
+import radio.io.*;
 
 public class RadioPlaylistSelectorDialog extends BaseDialog {
 	public RadioPlaylistSelectorDialog(String title) {
@@ -66,5 +67,6 @@ public class RadioPlaylistSelectorDialog extends BaseDialog {
 			}).growY().width(selectTable.getPrefWidth());
 		}).margin(20).row();
 		addCloseButton();
+		hidden(RadioIO::writeSettings);
 	}
 }

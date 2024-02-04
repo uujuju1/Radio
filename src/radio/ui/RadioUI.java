@@ -1,10 +1,9 @@
-package radio.core;
+package radio.ui;
 
 import arc.*;
 import mindustry.*;
-import radio.ui.*;
 
-public class RadioSettings {
+public class RadioUI {
 	public static void load() {
 		Vars.ui.settings.addCategory(Core.bundle.get("mod.radio.settings"), "radio-settings-icon", cont -> {
 			cont.image(Core.atlas.find("radio-settings-title")).row();

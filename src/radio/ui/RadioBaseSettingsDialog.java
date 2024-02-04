@@ -13,6 +13,7 @@ import mindustry.graphics.*;
 import mindustry.ui.*;
 import mindustry.ui.dialogs.*;
 import radio.core.*;
+import radio.io.*;
 
 public class RadioBaseSettingsDialog extends BaseDialog {
 	public RadioBaseSettingsDialog(String title) {
@@ -25,9 +26,9 @@ public class RadioBaseSettingsDialog extends BaseDialog {
 			radio.add(selectMusicType("Menu Music", musicNames, music -> soundControl.menuMusic = music, musicNames.findKey(soundControl.menuMusic, false))).margin(20).pad(10).growX();
 			radio.add(selectMusicType("Editor Music", musicNames, music -> soundControl.editorMusic = music, musicNames.findKey(soundControl.editorMusic, false))).margin(20).pad(10).growX().row();
 			radio.add(selectMusicType("Launch Music", musicNames, music -> soundControl.launchMusic = music, musicNames.findKey(soundControl.launchMusic, false))).margin(20).pad(10).growX();
-//			radio.add(selectMusicType("Land Music", musicNames, music -> soundControl.landMusic = music, musicNames.findKey(soundControl.landMusic, false))).margin(20).pad(10).growX();
 		});
 		addCloseButton();
+		hidden(RadioIO::writeSettings);
 	}
 
 	public Table selectMusicType(String label, ObjectMap<String, Music> musicNames, Cons<Music> cons, String current) {

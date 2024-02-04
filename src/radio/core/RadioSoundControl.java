@@ -14,16 +14,16 @@ public class RadioSoundControl extends SoundControl {
 	public final ObjectMap<String, Music> musics = musicNames();
 	public Playlist currentPlaylist = new Playlist(
 		musics.values().toSeq().removeAll(m -> Seq.with(Musics.menu, Musics.editor, Musics.launch, Musics.land).contains(m)),
-		0, false
+		0, true
 	);
 	public Music menuMusic = Musics.menu;
 	public Music launchMusic = Musics.launch;
 	public Music editorMusic = Musics.editor;
-	public Music landMusic = Musics.land;
 
 	public RadioSoundControl() {
 		musicChance = 0;
 		musicWaveChance = 0;
+		ambientMusic = darkMusic = bossMusic.clear();
 	}
 
 	public boolean silenced() {
@@ -65,25 +65,6 @@ public class RadioSoundControl extends SoundControl {
 		super.silence();
 	}
 
-	public Seq<Music> musics() {
-		Seq<Music> out = new Seq<>();
-
-		Vars.mods.orderedMods().each(mod -> new ZipFi(mod.file).child("music").seq().each(music -> {
-			try {
-				out.add(new Music(music));
-			} catch (Exception horrible) {
-				throw new RuntimeException("ah yes", horrible);
-			}
-		}));
-
-		out.addAll(
-			Musics.boss1, Musics.boss2, Musics.editor, Musics.fine,
-			Musics.game1, Musics.game2, Musics.game3, Musics.game4,
-			Musics.game5, Musics.game6, Musics.game7, Musics.game8,
-			Musics.game9, Musics.land, Musics.launch, Musics.menu
-		);
-		return out;
-	}
 	public ObjectMap<String, Music> musicNames() {
 		ObjectMap<String, Music> out = new ObjectMap<>();
 
@@ -183,6 +164,14 @@ public class RadioSoundControl extends SoundControl {
 
 		public boolean ended() {
 			return !(repeats || current < list.size);
+		}
+
+		public String musicNames() {
+			StringBuilder out = new StringBuilder();
+			for(Music music : list) {
+				out.append(((RadioSoundControl) Vars.control.sound).musics.findKey(music, false)).append(",");
+			}
+			return out.toString();
 		}
 	}
 }
