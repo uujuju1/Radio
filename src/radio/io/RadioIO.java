@@ -27,6 +27,6 @@ public class RadioIO {
 		} else {
 			newList.clear();
 		}
-		soundControl.currentPlaylist.list = newList.map(string -> soundControl.musics.get(string));
+		soundControl.currentPlaylist.list = newList.map(string -> soundControl.musics.get(string, Musics.game1));
 	}
 }
