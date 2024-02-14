@@ -9,7 +9,7 @@ public class RadioUI {
 			cont.image(Core.atlas.find("radio-settings-title")).row();
 
 			cont.button(b -> b.add(Core.bundle.get("radio.playlist")), () -> new RadioPlaylistSelectorDialog(Core.bundle.get("radio.playlist")).show()).growX().row();
-			cont.button(b -> b.add(Core.bundle.get("radio.settings")), () -> new RadioBaseSettingsDialog(Core.bundle.get("radio.menu-settings")).show()).growX();
+			cont.button(b -> b.add(Core.bundle.get("radio.settings")), () -> new RadioBaseSettingsDialog(Core.bundle.get("radio.settings")).show()).growX();
 		});
 	}
 }
