@@ -1,7 +1,7 @@
 {
     "displayName": "Radio",
     "description": "A Mindustry music loader.",
-    "version": "v1.0",
+    "version": "v1.1",
     "minGameVersion": "146",
     "author": "Aurora",
     "java": true,
