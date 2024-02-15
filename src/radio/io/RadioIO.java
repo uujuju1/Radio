@@ -19,9 +19,9 @@ public class RadioIO {
 	}
 
 	public static void readSettings() {
-		soundControl.menuMusic = soundControl.musics.get(Core.settings.getString("radio-menu-music", ""), new Music());
-		soundControl.editorMusic = soundControl.musics.get(Core.settings.getString("radio-editor-music", ""), new Music());
-		soundControl.launchMusic = soundControl.musics.get(Core.settings.getString("radio-launch-music", ""), new Music());
+		soundControl.menuMusic = soundControl.musics.get(Core.settings.getString("radio-menu-music", "Menu"), new Music());
+		soundControl.editorMusic = soundControl.musics.get(Core.settings.getString("radio-editor-music", "Editor"), new Music());
+		soundControl.launchMusic = soundControl.musics.get(Core.settings.getString("radio-launch-music", "Launch"), new Music());
 		Seq<String> newList = Seq.with(Core.settings.getString("radio-playlist-list", "").split(","));
 		if (newList.size > 1) {
 			newList.pop();

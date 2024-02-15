@@ -67,6 +67,14 @@ public class RadioSoundControl extends SoundControl {
 
 	public ObjectMap<String, Music> musicNames() {
 		ObjectMap<String, Music> out = new ObjectMap<>();
+		out.put("", new Music());
+
+		out.putAll(
+			"Boss1", Musics.boss1, "Boss2", Musics.boss2, "Editor", Musics.editor, "Fine", Musics.fine,
+			"Game1", Musics.game1, "Game2", Musics.game2, "Game3", Musics.game3, "Game4", Musics.game4,
+			"Game5", Musics.game5, "Game6", Musics.game6, "Game7", Musics.game7, "Game8", Musics.game8,
+			"Game9", Musics.game9, "Land", Musics.land, "Launch", Musics.launch, "Menu", Musics.menu
+		);
 
 		Vars.mods.orderedMods().each(mod -> new ZipFi(mod.file).child("music").seq().each(music -> {
 			try {
@@ -76,12 +84,6 @@ public class RadioSoundControl extends SoundControl {
 			}
 		}));
 
-		out.putAll(
-			"Boss1", Musics.boss1, "Boss2", Musics.boss2, "Editor", Musics.editor, "Fine", Musics.fine,
-			"Game1", Musics.game1, "Game2", Musics.game2, "Game3", Musics.game3, "Game4", Musics.game4,
-			"Game5", Musics.game5, "Game6", Musics.game6, "Game7", Musics.game7, "Game8", Musics.game8,
-			"Game9", Musics.game9, "Land", Musics.land, "Launch", Musics.launch, "Menu", Musics.menu
-		);
 		return out;
 	}
 
